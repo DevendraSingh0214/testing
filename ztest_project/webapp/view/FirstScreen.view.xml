@@ -1,0 +1,32 @@
+<mvc:View controllerName="ztestproject.controller.FirstScreen"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <NavContainer navigationFinished="onNavigationFinished" id="idNavContainer" width="100%" height="100%" class="navContainerControl sapUiSmallMarginBottom">
+        <Page id="idHomePage" titleAlignment="Center" title="Sales Print" >
+            <content>
+                
+            </content>
+            <footer>
+                <Bar id="idBar">
+                    <contentRight>
+                        <Button text="Clear" id="idClearButton" type="Emphasized" press="onClearButtonPress"></Button>
+                        <Button id="idPostButton" text="Post" type="Emphasized" press="onPostButtonPress"/>
+                        <Button id="idPrint1Button" text="Print" type="Emphasized" press="onPrintButtonPress"/>
+                        <!-- <Button id="idDeleteButton" text="Delete" type="Emphasized" press="onDeleteButtonPress"/> -->
+                    </contentRight>
+                </Bar>
+            </footer>
+        </Page>
+        <Page id="idSecondPage" titleAlignment="Center" >
+            <content>
+            </content>
+            <footer>
+                <Bar id="idSecondPagesBar">
+                    <contentRight>
+                        <Button id="idPrint2Button" text="Print" type="Emphasized" press="onPrintButtonPress"/>
+                    </contentRight>
+                </Bar>
+            </footer>
+        </Page>
+    </NavContainer>
+</mvc:View>

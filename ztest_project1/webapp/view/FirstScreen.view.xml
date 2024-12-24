@@ -1,0 +1,384 @@
+<mvc:View controllerName="ztestproject1.controller.FirstScreen"
+    xmlns:mvc="sap.ui.core.mvc"
+   xmlns:l="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:F="sap.ui.layout.form"
+    xmlns:C="sap.ui.core"
+    xmlns:Tab="sap.ui.table">
+    <NavContainer navigationFinished="onNavigationFinished" id="idNavContainer" width="100%" height="100%" class="navContainerControl sapUiSmallMarginBottom">
+        <Page id="idHomePage" titleAlignment="Center" title="Sales Print" >
+            <content>
+                <F:SimpleForm id="idFirstSimpleForm" layout="ResponsiveGridLayout" editable="true" columnsL="3" columnsXL="3" columnsM="2">
+                    <F:content>
+                        <Label id="idTransationTypeLabel" text="Transaction Type" />
+                        <ComboBox change="onTransationTypeComboBoxChange" id="idTransationTypeComboBox">
+                            <items>
+                                <C:Item id="idAdditionalDiscountItem" text="Additional Discount" />
+                                <C:Item id="idSchemeDiscountItem" text="Scheme Discount" />
+                            </items>
+                        </ComboBox>
+                        <Label id="idCustomerCodeLabel" text="Customer Code" />
+                        <Input id="idCustomerCodeInput" valueHelpRequest="onInputValueHelpRequest" showValueHelp="true">
+                            <customData>
+                                <C:CustomData id="idCustomerCodeCustomData" key="CustomerCode" />
+                            </customData>
+                        </Input>
+                        <Input editable="false" id="idCustomerNameInput">
+                            <layoutData>
+                                <l:GridData id="idCustomerNameInputsGridData" span="XL5 L4 M3 S4" />
+                            </layoutData>
+                        </Input>
+                        <Label id="idCustomerAddressLabel" text="Customer Address" />
+                        <Input editable="false" id="idCustomerAddressInput" />
+                        <Label id="idRemarkLabel" text="Remark" />
+                        <Input id="idRemarkInput" />
+                        <Label id="idInvoiceReferanceLabel" text="Invoice Referance" />
+                        <Input id="idInvoiceReferanceInput" />
+                        <C:Title id="idcore1Title"/>
+
+                        <Label id="idInvoiceDateLabel" text="Invoice Date" />
+                        <DatePicker displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" id="idInvoiceDatePicker" />
+                        <Label id="idPostingDateLabel" text="Posting Date" />
+                        <DatePicker displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" id="idPostingDatePicker" />
+                        <Label id="idApplicableOnLabel" text="Applicable On" />
+                        <ComboBox id="idApplicableOnComboBox">
+                            <items>
+                                <C:Item id="idTaxableAmountItem" text="Taxable Amount" />
+                                <C:Item id="idGrandTotalItem" text="Grand Total" />
+                                <C:Item id="idGrandAmountItem" text="Gross Amount" />
+                            </items>
+                        </ComboBox>
+                        <Label id="idSalesSelectionLabel" text="Sales Selection" />
+                        <DatePicker displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" id="idFromSalesSelectionDatePicker" />
+                        <DatePicker displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" id="idTOSalesSelectionDatePicker" />
+                        
+                        <Label id="idDocumentTypeLabel" text="Document Type" />
+                        <RadioButtonGroup columns="2" id="idDocumentTypeRadioButtonGroup">
+                            <RadioButton id="idF2RadioButton" text="F2"></RadioButton>
+                            <RadioButton id="idCBRERadioButton" text="CBRE"></RadioButton>
+                        </RadioButtonGroup>
+                        <Label id="idBillingDocumentLabel" text="Billing Document" />
+                        <MultiInput showValueHelp="true" valueHelpRequest="onBillingDocumentValueHelpRequest" id="idBillingDocumentMultiInput" />
+                        
+                        <Label id="idFetchButtonsLabel" />
+                        <Button id="idFetchButton" text="Fetch" press="onFetchButtonPress" />
+                        <C:Title id="idcore2Title"/>
+                    </F:content>
+                </F:SimpleForm>
+                <Tab:Table class="sapUiSmallMargin" id="idAdditionalDiscountTable" rows="{oDataModel>/aFirstTableData}">
+                    <Tab:noData>
+                        <IllustratedMessage id="idIllustratedMessage" title="No Data Found!!" enableFormattedText="true" description="Add data to the table using the Fatch button above" />
+                    </Tab:noData>
+                    <!-- <Tab:extension>
+                        <OverflowToolbar id="idTableOverflowToolbar" style="Clear">
+                            <ToolbarSpacer id="idTableToolbarSpacer" />
+                            <Button text="Clear" id="idClearButton" type="Emphasized" press="onClearButtonPress"></Button>
+                        </OverflowToolbar>
+                    </Tab:extension> -->
+                    <Tab:columns>
+                        <Tab:Column id="idFiscalYearColumn" width="12rem">
+                            <Label id="idFiscalYearLabel" text="Fiscal Year" />
+                            <Tab:template>
+                                <Input id="idFiscalYearInput" editable="true" value="{oDataModel>FiscalYear}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idCompanyCodeColumn" width="12rem">
+                            <Label id="idCompanyCodeLabel" text="Company Code" />
+                            <Tab:template>
+                                <Input id="idCompanyCodeInput" editable="true" value="{oDataModel>CompanyCode}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idCustomerCodeColumn" width="12rem">
+                            <Label id="idCustomerCodeTablesLabel" text="Customer Code" />
+                            <Tab:template>
+                                <Input id="idCustomerCodeTablesInput" editable="true" value="{oDataModel>CustomerCode}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idCustomerNameColumn" width="12rem">
+                            <Label id="idCustomerNameTablesLabel" text="Customer Name" />
+                            <Tab:template>
+                                <Input id="idCustomerNameTablesInput" editable="true" value="{oDataModel>CustomerName}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column sortProperty="BillingDocument" filterProperty="BillingDocument" id="idBillingDocumentColumn" width="12rem">
+                            <Label id="idBillingDocumentTablesLabel" text="Billing Document" />
+                            <Tab:template>
+                                <Input id="idBillingDocumentTablesInput" editable="true" value="{oDataModel>BillingDocument}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idBillingDocumentDateColumn" width="12rem">
+                            <Label id="idBillingDocumentDateLabel" text="Billing Document Date" />
+                            <Tab:template>
+                                <DatePicker displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" id="idBillingDocumentDatePicker" value="{oDataModel>BillingDocumentDate}"/>
+                                <!-- <Input id="idBillingDocumentDateInput" editable="true" value="{oDataModel>BillingDocumentDate}"/> -->
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idBillingDocumentTypeColumn" width="12rem">
+                            <Label id="idBillingDocumentTypeLabel" text="Billing Document Type" />
+                            <Tab:template>
+                                <Input id="idBillingDocumentTypeInput" editable="true" value="{oDataModel>BillingDocumentType}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idBillingItemColumn" width="12rem">
+                            <Label id="idBillingItemLabel" text="Billing Item" />
+                            <Tab:template>
+                                <Input id="idBillingItemInput" editable="true" value="{oDataModel>BillingItem}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idSalesOrganisationColumn" width="12rem">
+                            <Label id="idSalesOrganisationLabel" text="Sales Organisation" />
+                            <Tab:template>
+                                <Input id="idSalesOrganisationInput" editable="true" value="{oDataModel>SalesOrganisation}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idPlantColumn" width="12rem">
+                            <Label id="idPlantLabel" text="Plant" />
+                            <Tab:template>
+                                <Input id="idPlantInput" editable="true" value="{oDataModel>Plant}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idProductCut_GradeColumn" width="12rem">
+                            <Label id="idProductCut_GradeLabel" text="Product Cut (Grade)" />
+                            <Tab:template>
+                                <Input id="idProductCut_GradeInput" editable="true" value="{oDataModel>ProductCut_Grade}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idMaterialColumn" width="12rem">
+                            <Label id="idMaterialLabel" text="Material" />
+                            <Tab:template>
+                                <Input id="idMaterialInput" editable="true" value="{oDataModel>Material}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idMaterialDescriptionColumn" width="12rem">
+                            <Label id="idMaterialDescriptionLabel" text="Material Description" />
+                            <Tab:template>
+                                <Input id="idMaterialDescriptionInput" editable="true" value="{oDataModel>MaterialDescription}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idBillingQuantityColumn" width="12rem">
+                            <Label id="idBillingQuantityLabel" text="Billing Quantity" />
+                            <Tab:template>
+                                <Input id="idBillingQuantityInput" editable="true" value="{oDataModel>BillingQuantity}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idSalesOfficeNameColumn" width="12rem">
+                            <Label id="idSalesOfficeNameLabel" text="Sales Office Name" />
+                            <Tab:template>
+                                <Input id="idSalesOfficeNameInput" editable="true" value="{oDataModel>SalesOfficeName}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idPaymentTermsColumn" width="12rem">
+                            <Label id="idPaymentTermsLabel" text="Payment Terms" />
+                            <Tab:template>
+                                <Input id="idPaymentTermsInput" editable="true" value="{oDataModel>PaymentTerms}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column visible="false" id="idSalesAgentCodeColumn" width="12rem">
+                            <Label id="idSalesAgentCodeLabel" text="Sales Agent(Code)" />
+                            <Tab:template>
+                                <Input id="idSalesAgentCodeInput" editable="true" value="{oDataModel>SalesAgent_Code}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column visible="false" id="idSalesAgentNameColumn" width="12rem">
+                            <Label id="idSalesAgentNameLabel" text="Sales Agent(Name)" />
+                            <Tab:template>
+                                <Input id="idSalesAgentNameInput" editable="true" value="{oDataModel>SalesAgent_Name}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idGrossAmountColumn" width="12rem">
+                            <Label id="idGrossAmountLabel" text="Gross Amount" />
+                            <Tab:template>
+                                <Input id="idGrossAmountInput" editable="true" value="{oDataModel>GrossAmount}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idTaxableAmountColumn" width="12rem">
+                            <Label id="idTaxableAmountLabel" text="Taxable Amount" />
+                            <Tab:template>
+                                <Input id="idTaxableAmountInput" editable="true" value="{oDataModel>TaxableAmount}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idJOSGColumn" width="12rem">
+                            <Label id="idJOSGLabel" text="JOSG" />
+                            <Tab:template>
+                                <Input id="idJOSGInput" editable="true" value="{oDataModel>JOSG}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idJOCGColumn" width="12rem">
+                            <Label id="idJOCGLabel" text="JOCG" />
+                            <Tab:template>
+                                <Input id="idJOCGInput" editable="true" value="{oDataModel>JOCG}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idJOIGColumn" width="12rem">
+                            <Label id="idJOIGLabel" text="JOIG" />
+                            <Tab:template>
+                                <Input id="idJOIGInput" editable="true" value="{oDataModel>JOIG}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idGrandTotalColumn" width="12rem">
+                            <Label id="idGrandTotalLabel" text="Grand Total" />
+                            <Tab:template>
+                                <Input id="idGrandTotalInput" editable="true" value="{oDataModel>GrandTotal}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column id="idGrossAddDiscColumn" width="12rem">
+                            <Label id="idGrossAddDiscLabel" text="Gross Additional Discount" />
+                            <Tab:template>
+                                <Input id="idGrossAddDiscInput" editable="true" value="{oDataModel>GrossAdditionalDiscount}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column visible="false" id="idTaxable_Additional_discountColumn" width="15rem">
+                            <Label id="idTaxableAdditionalDiscountLabel" text="Taxable Additional Discount" />
+                            <Tab:template>
+                                <Input id="idTaxable_Additional_discountInput" editable="true" value="{oDataModel>Taxable_Additional_discount}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column visible="false" id="idGrand_Additional_discountColumn" width="15rem">
+                            <Label id="idGrand_Additional_discountLabel" text="Grand Additional discount" />
+                            <Tab:template>
+                                <Input id="idGrand_Additional_discountInput" editable="true" value="{oDataModel>Grand_Additional_discount}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column visible="false" id="idAdditionalDiscountRateColumn" width="15rem">
+                            <Label id="idAdditionalDiscountRateLabel" text="Additional Discount Rate" />
+                            <Tab:template>
+                                <Input id="idAdditionalDiscountRateInput" editable="true" value="{oDataModel>AdditionalDiscountRate}"/>
+                            </Tab:template>
+                        </Tab:Column>
+
+
+                        <Tab:Column visible="false" id="idTaxable_Scheme_discountColumn" width="15rem">
+                            <Label id="idTaxableSchemeDiscountLabel" text="Taxable Scheme Discount" />
+                            <Tab:template>
+                                <Input id="idTaxable_Scheme_discountInput" editable="true" value="{oDataModel>Taxable_Scheme_discount}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column visible="false" id="idGrand_Scheme_discountColumn" width="15rem">
+                            <Label id="idGrand_Scheme_discountLabel" text="Grand Scheme discount" />
+                            <Tab:template>
+                                <Input id="idGrand_Scheme_discountInput" editable="true" value="{oDataModel>Grand_Scheme_discount}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column visible="false" id="idSchemeDiscountRateColumn" width="15rem">
+                            <Label id="idSchemeDiscountRateLabel" text="Scheme Discount Rate" />
+                            <Tab:template>
+                                <Input id="idSchemeDiscountRateInput" editable="true" value="{oDataModel>SchemeDiscountRate}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                        <Tab:Column visible="false" id="idHSNCodeColumn" width="15rem">
+                            <Label id="idHSNCodeLabel" text="HSN Code" />
+                            <Tab:template>
+                                <Input id="idHSNCodeInput" editable="false" value="{oDataModel>HSNCode}"/>
+                            </Tab:template>
+                        </Tab:Column>
+                    </Tab:columns>
+                </Tab:Table>
+                <F:SimpleForm id="idSecondSimpleForm" layout="ResponsiveGridLayout" editable="true" columnsL="3" columnsXL="3" columnsM="2">
+                    <F:content>
+                        <Label id="idTaxCodeLabel" text="Tax Code" />
+                        <!-- <Input id="idTaxCodeInput" enableSuggestionsHighlighting="true" suggestionItemSelected="onInputSuggestionItemSelected" maxSuggestionWidth="100%" showSuggestion="true" suggestionRows="{path:'ZTEXT_CODE_TMG>/TextCodeTMG',length:1000}">
+                            <suggestionColumns>
+                                <Column>
+                                    <Label text="TaxCode" />
+                                </Column>
+                                <Column>
+                                    <Label text="TransactionKey" />
+                                </Column>
+                                <Column>
+                                    <Label text="ConditionType" />
+                                </Column>
+                                <Column>
+                                    <Label text="Description" />
+                                </Column>
+                                <Column>
+                                    <Label text="Percentage" />
+                                </Column>
+                            </suggestionColumns>
+                            <suggestionRows>
+                                <ColumnListItem>
+                                    <Label text="{ZTEXT_CODE_TMG>TaxCode}" />
+                                    <Label text="{ZTEXT_CODE_TMG>TransactionKey}" />
+                                    <Label text="{ZTEXT_CODE_TMG>ConditionType}" />
+                                    <Label text="{ZTEXT_CODE_TMG>Description}" />
+                                    <Label text="{ZTEXT_CODE_TMG>Percentage}" />
+                                </ColumnListItem>
+                            </suggestionRows>
+                            <customData>
+                                <C:CustomData id="idTaxCodeCustomData" key="TaxCode" />
+                            </customData>
+                        </Input> -->
+                        <ComboBox required="true" change="onTaxCodeComboBoxChange" items="{path:'ZTEXT_CODE_TMG>/aTextCodeTMGData'}" showSecondaryValues="true" id="idTextCodeTMGComboBox">
+                            <items>
+                                <C:ListItem id="idTaxCodeListItem" text="{ZTEXT_CODE_TMG>TaxCode}" additionalText="{ZTEXT_CODE_TMG>Percentage}"></C:ListItem>
+                            </items>
+                        </ComboBox>
+                        <C:Title id="idcore3Title"/>
+                        <C:Title id="idcore4Title"/>
+                        <Label visible="false" id="idTotalAdditionalDiscountLabel" text="Total Additional Discount" />
+                        <Input visible="false" editable="false" id="idTotalAdditionalDiscountInput" />
+                        <Label visible="false" id="idTotalSchemeDiscountLabel" text="Total Scheme Discount" />
+                        <Input visible="false" editable="false" id="idTotalSchemeDiscountInput" />
+
+                        <Label id="idTaxAmountLabel" text="Tax Amount" />
+                        <Input editable="false" id="idTaxAmountInput" />
+
+                        <Label visible="false" id="idNetAdditionalDiscountLabel" text="Net Additional Discount" />
+                        <Input visible="false" editable="false" id="idNetAdditionalDiscountInput" />
+                        <Label id="idNetSchemeDiscountLabel" text="Net Scheme Discount" />
+                        <Input editable="false" id="idNetSchemeDiscountInput" />
+                        <C:Title id="idcore5Title"/>
+                    </F:content>
+                </F:SimpleForm>
+
+
+                <TableSelectDialog multiSelect="true" id="idBillingDocumentTableSelectDialog" noDataText="No Billing Document Found" 
+                    title="Select Billing Document" search="onBillingDocumentSelectDialogSearch" confirm="onBillingDocumentSelectDialogConfirm" >
+                    <columns>
+                        <Column >
+                            <header>
+                                <Text text="Billing Document" />
+                            </header>
+                        </Column>
+                        <Column >
+                            <header>
+                                <Text text="Billing Document Type" />
+                            </header>
+                        </Column>
+                        <Column >
+                            <header>
+                                <Text text="Customer" />
+                            </header>
+                        </Column>
+                        <Column >
+                            <header>
+                                <Text text="Customer Name" />
+                            </header>
+                        </Column>
+                    </columns>
+                </TableSelectDialog>
+
+            </content>
+            <footer>
+                <Bar id="idBar">
+                    <contentRight>
+                        <Button text="Clear" id="idClearButton" type="Emphasized" press="onClearButtonPress"></Button>
+                        <Button id="idPostButton" text="Post" type="Emphasized" press="onPostButtonPress"/>
+                        <Button id="idPrint1Button" text="Print" type="Emphasized" press="onPrintButtonPress"/>
+                        <!-- <Button id="idDeleteButton" text="Delete" type="Emphasized" press="onDeleteButtonPress"/> -->
+                    </contentRight>
+                </Bar>
+            </footer>
+        </Page>
+        <Page id="idSecondPage" titleAlignment="Center" >
+            <content>
+            </content>
+            <footer>
+                <Bar id="idSecondPagesBar">
+                    <contentRight>
+                        <Button id="idPrint2Button" text="Print" type="Emphasized" press="onPrintButtonPress"/>
+                    </contentRight>
+                </Bar>
+            </footer>
+        </Page>
+    </NavContainer>
+</mvc:View>
